@@ -1,0 +1,37 @@
+/**
+ * New query file
+ */
+query UserMedicalRecords {
+  description: "Select all Medical records of user."
+  statement:
+      SELECT orange.medicalblocks.MedicalRecord
+          WHERE (_$user == owner)
+}
+
+query HospitalAccessedMedicalRecords {
+  description: "Select all Medical records which can be accessed by hospital."
+  statement:
+      SELECT orange.medicalblocks.MedicalRecord
+          WHERE (hospitalsWithAccess CONTAINS _$hospital)
+}
+
+query DCenterAccessedMedicalRecords {
+  description: "Select all Medical records which can be accessed by Diagnostic center."
+  statement:
+      SELECT orange.medicalblocks.MedicalRecord
+          WHERE (dCentersWithAccess CONTAINS _$dCenter)
+}
+
+query IProviderAccessedMedicalRecords {
+  description: "Select all Medical records which can be accessed by insurance provider."
+  statement:
+      SELECT orange.medicalblocks.MedicalRecord
+          WHERE (providersWithAccess CONTAINS _$iProvider)
+}
+
+query UserInsuranceRecords {
+  description: "Select all Insurance records of user."
+  statement:
+      SELECT orange.medicalblocks.InsuranceRecord
+          WHERE (_$user == user)
+}
