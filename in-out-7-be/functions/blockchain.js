@@ -33,6 +33,22 @@ exports.queryBCOneParam = async (param, route, req, res) => {
     });
 };
 
+exports.addMedicalRecord = async (userType, req, res, options) => {
+  let body = Object.assign({}, req.body);
+  delete body[userType];
+  body[`${userType}sWithAccess`] = [req.body[userType]];
+  body["$class"] = "orange.medicalblocks.MedicalRecord";
+
+  await exports.postJSON("/MedicalRecord", body, res, options);
+};
+
+exports.addInsuranceRecord = async (req, res) => {
+  let body = Object.assign({}, req.body);
+  body["$class"] = "orange.medicalblocks.InsuranceRecord";
+
+  await exports.postJSON("/InsuranceRecord", body, res);
+};
+
 exports.getBC = async (route, req, res) => {
   fetch(bApiUrl + route, {
     method: "GET",
@@ -65,5 +81,38 @@ exports.postJSON = async (route, body, res, options = {sand: true}) => {
     .catch((err) => {
       if (options.sand) res.status(500).send(err);
       console.log(err);
+    });
+};
+
+exports.addEntity = async (entity, req, res) => {
+  let body = req.body;
+  console.log(body);
+  body["$class"] = `orange.medicalblocks.${entity}`;
+  console.log(body);
+
+  await exports.postJSON(`/${entity}`, body, res);
+};
+
+exports.createUser = async (userType, collection, prefix, req, res) => {
+  admin
+    .auth()
+    .createUser({
+      email: req.body.email,
+      emailVerified: false,
+      displayName: req.body.name,
+    })
+    .then(async (userRecord) => {
+      body = Object.assign({}, req.body);
+      req.body = {};
+      req.body[`${prefix}Id`] = userRecord.uid;
+      req.body[`${prefix}Name`] = userRecord.displayName;
+      await Promise.all([
+        collection.doc(userRecord.uid).set(body),
+        exports.addEntity(userType, req, res),
+      ]);
+      return true;
+    })
+    .catch((error) => {
+      res.status(500).send(error);
     });
 };
