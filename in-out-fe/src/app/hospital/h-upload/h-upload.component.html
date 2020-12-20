@@ -1,0 +1,30 @@
+<div class="wrapper">
+  <mat-card>
+    <p>Upload {{ title }} Record</p>
+    <mat-form-field class="example-full-width">
+      <mat-label>User Phone Number</mat-label>
+      <input
+        matInput
+        placeholder="User Phone Number"
+        value=""
+        [(ngModel)]="phone"
+      />
+    </mat-form-field>
+    <br />
+    <mat-form-field class="example-full-width">
+      <mat-label>Record Name</mat-label>
+      <input
+        matInput
+        placeholder="Doctor Name"
+        value=""
+        [(ngModel)]="recordName"
+      />
+    </mat-form-field>
+    <br />
+    <!-- <input matInput type="text" placeholder="User Phone Number" /> -->
+    <label for="file">File:</label>
+    <br />
+    <input type="file" (change)="upload($event)" accept=".pdf" />
+    <!-- <button mat-raised-button>UPLOAD</button> -->
+  </mat-card>
+</div>

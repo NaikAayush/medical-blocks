@@ -1,0 +1,38 @@
+<mat-card>
+  <mat-form-field>
+    <mat-label>Phone Number</mat-label>
+    <input matInput type="text" [(ngModel)]="phone" />
+  </mat-form-field>
+  <br />
+  <button mat-raised-button (click)="fetchUserRecords(phone)">FIND</button>
+  <mat-card>
+    <div *ngIf="data">
+      <div *ngFor="let a of data">
+        <mat-card>
+          <mat-grid-list cols="2" rowHeight="5:1">
+            <mat-grid-tile>
+              <h3 (click)="updateName(a.data.mRecord)">
+                {{ a.data.mRecord }}
+                <div *ngIf="naem">
+                  {{ naem.name }}
+                </div>
+              </h3>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              {{ toDateTime(a.data.reqDateTime._seconds) }}
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+              <button mat-raised-button (click)="download(a.data.mRecord)">
+                DOWNLOAD
+                <mat-icon aria-hidden="false" aria-label="Example home icon">
+                  preview
+                </mat-icon>
+              </button>
+            </mat-grid-tile>
+            <!-- <mat-grid-tile>4</mat-grid-tile> -->
+          </mat-grid-list>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card>
+</mat-card>

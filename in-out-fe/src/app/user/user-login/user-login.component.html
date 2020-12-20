@@ -1,0 +1,29 @@
+<div *ngIf="auth.user$ | async; then authenticated; else guest">
+  {{ user | json }}
+</div>
+
+<ng-template #authenticated>
+  <button (click)="auth.signOut()" mat-raised-button color="primary">
+    LOGOUT
+  </button>
+</ng-template>
+
+<ng-template #guest>
+  <mat-card fxFlex="noshrink">
+    <legend>Sign In</legend>
+    <div class="signin" fxLayout="column" fxLayoutAlign="center center">
+      <mat-form-field>
+        <input matInput placeholder="phone" [(ngModel)]="phone" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="signin()">
+        SIGN IN
+      </button>
+      <div class="fingerprint-auth" *ngIf="webAuthnAvailable">
+        <div class="or" fxLayoutAlign="center start">OR</div>
+        <button mat-raised-button color="primary" (click)="webAuthSignin()">
+          <mat-icon>fingerprint</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</ng-template>

@@ -1,0 +1,31 @@
+<mat-card>
+  <!-- <form> -->
+  <mat-form-field appearance="fill">
+    <input matInput type="text" name="name" [(ngModel)]="name" />
+    <mat-label>Name</mat-label>
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="fill">
+    <input matInput type="text" name="email" [(ngModel)]="email" />
+    <mat-label>Email</mat-label>
+  </mat-form-field>
+  <br />
+  <br />
+  <div class="fingerprint" *ngIf="webAuthnAvailable">
+    <mat-checkbox
+      [(ngModel)]="useFingerprint"
+      matTooltip="Use your fingerprint for future authentications"
+      ><mat-icon inline>fingerprint</mat-icon></mat-checkbox
+    >
+    <br />
+    <br />
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="signUpWithFingerPrint(name, email)"
+    >
+      SIGN UP
+    </button>
+  </div>
+  <!-- </form> -->
+</mat-card>

@@ -1,0 +1,30 @@
+<firebase-ui (signInSuccessWithAuthResult)="successCallback($event)">
+</firebase-ui>
+
+<!-- <div *ngIf="!authState"></div> -->
+
+<div *ngIf="authState">
+  <div *ngIf="!signUpState">
+    <mat-card>
+      <form (submit)="onSubmitallDetails(postForm)" #postForm="ngForm">
+        <mat-form-field appearance="fill">
+          <input matInput type="text" name="name" ngModel />
+          <mat-label>Name</mat-label>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="fill">
+          <input matInput type="text" name="email" ngModel />
+          <mat-label>Email</mat-label>
+        </mat-form-field>
+        <br />
+        <button type="submit" mat-raised-button color="primary">SIGN UP</button>
+        <br />
+      </form>
+    </mat-card>
+  </div>
+</div>
+
+<div *ngIf="authState">
+  <div *ngIf="signUpState">Logged In</div>
+  <button (click)="signOut()" mat-raised-button color="primary">LOGOUT</button>
+</div>

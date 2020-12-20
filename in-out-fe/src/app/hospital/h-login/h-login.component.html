@@ -1,0 +1,21 @@
+<!-- <div *ngIf="hauth.isAuthenticated">AAAA</div> -->
+
+<div>
+  <a [routerLink]="['/hospital/dash']">redirect to dash</a>
+  <button mat-raised-button (click)="hauth.signOut()" color="primary">
+    SIGN OUT
+  </button>
+</div>
+
+<div>
+  <label for="email" class="label">Passwordless Auth</label><br />
+  <input type="email" class="input" [(ngModel)]="hauth.email" />
+
+  <button
+    class="button is-primary"
+    [disabled]="hauth.emailSent"
+    (click)="hauth.sendEmailLink(hauth.email)"
+  >
+    Get Login Link
+  </button>
+</div>

@@ -1,0 +1,45 @@
+<div class="wrapper" *ngFor="let a of arr">
+  <mat-card>
+    <mat-grid-list cols="2" rowHeight="5:1">
+      <mat-grid-tile>
+        <h3>
+          {{ a.name }}
+          <!-- {{ a.id }} -->
+        </h3>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <button mat-raised-button (click)="showRecords(a.id)">
+          VIEW RECORDS
+        </button>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-card>
+      <div *ngFor="let b of records">
+        <mat-grid-list cols="2" rowHeight="5:1">
+          <mat-grid-tile>
+            <h3>
+              {{ b.data.name }}
+              <!-- {{ b.id }} -->
+            </h3>
+            <br />
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div>{{ toDateTime(b.data.date._seconds) }}</div>
+          </mat-grid-tile>
+
+          <br />
+          <mat-grid-tile>
+            <button
+              mat-raised-button
+              (click)="wauth.webAuthSignin(b.data.url, b.id, a.id)"
+            >
+              <mat-icon aria-hidden="false" aria-label="Example home icon">
+                cloud_download
+              </mat-icon>
+            </button>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </mat-card>
+  </mat-card>
+</div>

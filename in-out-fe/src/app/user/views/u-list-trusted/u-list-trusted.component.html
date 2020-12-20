@@ -1,0 +1,32 @@
+<div class="wrapper" *ngFor="let a of arr">
+  <mat-card>
+    List Trusted Contacts
+    <mat-grid-list cols="2" rowHeight="5:1">
+      <mat-grid-tile>
+        <h3>
+          {{ a.name }}
+        </h3>
+      </mat-grid-tile>
+      <br />
+      <mat-grid-tile>
+        <button mat-raised-button (click)="revokeAccess(a.uid)">
+          REVOKE ACCESS
+        </button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card>
+</div>
+
+<div>
+  <mat-card>
+    <h3>Add Trusted Contact</h3>
+    <mat-form-field>
+      <mat-label>Phone number of Trusted contact</mat-label>
+      <input matInput type="text" [(ngModel)]="phoneNo" />
+    </mat-form-field>
+    <br />
+    <button mat-raised-button (click)="addTrustedContact(phoneNo)">
+      ADD TRUSTED CONTACT
+    </button>
+  </mat-card>
+</div>

@@ -1,0 +1,30 @@
+<h1>User Dashboard</h1>
+<h2>Welcome {{ name }}</h2>
+<!--
+<h1>User Medical Records</h1>
+<app-user-med-records></app-user-med-records>
+<br />
+<h1>Pending Requests</h1>
+<app-u-v-requests></app-u-v-requests>
+<br />
+<h1>List Trusted Users</h1>
+<app-u-list-trusted></app-u-list-trusted> -->
+<div>
+  <button (click)="auth.signOut()" mat-raised-button color="primary">
+    LOGOUT
+  </button>
+</div>
+<mat-tab-group>
+  <mat-tab label="User Medical Records"
+    ><app-user-med-records></app-user-med-records
+  ></mat-tab>
+  <mat-tab label="Pending Requests"
+    ><app-u-v-requests></app-u-v-requests
+  ></mat-tab>
+  <mat-tab label="Trusted Contacts">
+    <app-u-list-trusted> </app-u-list-trusted>
+  </mat-tab>
+  <mat-tab label="View Who Trust me Contacts">
+    <app-u-iam-trusted> </app-u-iam-trusted>
+  </mat-tab>
+</mat-tab-group>

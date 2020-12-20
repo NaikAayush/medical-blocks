@@ -1,0 +1,77 @@
+<div *ngIf="auth.user$ | async; then authenticated; else guest">
+  {{ user | json }}
+</div>
+
+<ng-template #authenticated>
+  <mat-toolbar color="primary">
+    <span>User Home</span>
+    <span class="spacer"></span>
+    <button (click)="auth.signOut()" mat-raised-button>LOGOUT</button>
+  </mat-toolbar>
+  <a [routerLink]="['/user-signup']">Sign Up with further details</a>
+</ng-template>
+
+<div id="recaptcha-container"></div>
+
+<ng-template #guest>
+  <!-- <div> -->
+  <div class="wrapper">
+    <h1>Sign Up with Your Phone Number</h1>
+    <mat-card>
+      <mat-form-field class="example-full-width">
+        <mat-label>Country Code</mat-label>
+        <input [(ngModel)]="phoneNumber.countryCode" matInput />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Phone Number</mat-label>
+        <input [(ngModel)]="phoneNumber.number" matInput autofocus />
+      </mat-form-field>
+      <br />
+      <button
+        (click)="auth.sendLoginCode(appVerifier, phoneNumber, windowRef)"
+        mat-raised-button
+        color="primary"
+      >
+        VERIFY
+      </button>
+
+      <div *ngIf="windowRef.confirmationResult">
+        <hr />
+        <mat-form-field class="example-full-width">
+          <mat-label>Enter your Verification Code Here</mat-label>
+          <input
+            [(ngModel)]="verificationCode"
+            matInput
+            type="text"
+            name="code"
+          />
+        </mat-form-field>
+
+        <!-- <div class="fingerprint" *ngIf="webAuthnAvailable">
+      <mat-checkbox
+        [(ngModel)]="useFingerprint"
+        matTooltip="Use your fingerprint for future authentications"
+        ><mat-icon inline>fingerprint</mat-icon></mat-checkbox
+      >
+      <br />
+      <br />
+    </div> -->
+
+        <button
+          (click)="auth.verifyLoginCode(verificationCode, windowRef)"
+          mat-raised-button
+          color="primary"
+        >
+          CONTINUE
+        </button>
+      </div>
+    </mat-card>
+  </div>
+  <!-- </div> -->
+</ng-template>
+<!-- <div *ngIf="auth.user$">
+  You have successfully logged in with your phone number! UserId:
+{{ user?.uid }}
+</div> -->

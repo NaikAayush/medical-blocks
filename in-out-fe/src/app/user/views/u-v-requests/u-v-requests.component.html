@@ -1,0 +1,28 @@
+<div class="wrapper" *ngFor="let a of arr">
+  <mat-card>
+    <mat-grid-list cols="2" rowHeight="5:1">
+      <mat-grid-tile>
+        <h3>
+          <!-- {{ a.data.name }} -->
+        </h3>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        {{ toDateTime(a.data.reqDateTime._seconds) }}
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2">
+        <button (click)="getMoreInfo(a.data.mRecord, a.data.hospital)">
+          <mat-icon aria-hidden="false"> pageview </mat-icon>
+        </button>
+      </mat-grid-tile>
+
+      <!-- <mat-grid-tile>4</mat-grid-tile> -->
+    </mat-grid-list>
+    <div *ngIf="stat">
+      <span>Name of Document : {{ arr1.name }}</span>
+      <br />
+      <span>Name of Hospital Requesting: {{ arr1.name }}</span>
+      <br />
+      <button (click)="approveAccess(a.id)">APPROVE ACCESS</button>
+    </div>
+  </mat-card>
+</div>

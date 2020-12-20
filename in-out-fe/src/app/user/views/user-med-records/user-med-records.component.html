@@ -1,0 +1,22 @@
+<div class="wrapper" *ngFor="let a of arr">
+  <mat-card>
+    <mat-grid-list cols="2" rowHeight="5:1">
+      <mat-grid-tile>
+        <h3>
+          {{ a.data.name }}
+        </h3>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        {{ toDateTime(a.data.date._seconds) }}
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2">
+        <button (click)="webAuthSignin(a.data.url, a.id)">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">
+            cloud_download
+          </mat-icon>
+        </button>
+      </mat-grid-tile>
+      <!-- <mat-grid-tile>4</mat-grid-tile> -->
+    </mat-grid-list>
+  </mat-card>
+</div>

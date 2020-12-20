@@ -1,0 +1,65 @@
+<div *ngIf="auth.user$ | async; then authenticated; else guest"></div>
+<ng-template #authenticated>
+  <mat-toolbar color="primary">
+    <span class="gap">File</span>
+    <span>Edit</span>
+    <span class="filler"></span>
+    <span>About</span>
+  </mat-toolbar>
+  CREATE ACCOUNTS
+  <div>
+    HOSPITAL
+    <mat-form-field class="hospital-name">
+      <mat-label>Hospital Name</mat-label>
+      <input
+        name="hName"
+        matInput
+        placeholder="Hospital Name"
+        [(ngModel)]="hName"
+      />
+    </mat-form-field>
+    <mat-form-field class="hospital-email">
+      <mat-label>Hospital Email</mat-label>
+      <input
+        name="hEmail"
+        matInput
+        placeholder="Hospital Email"
+        [(ngModel)]="hEmail"
+      />
+    </mat-form-field>
+    <button
+      (click)="addHospital(hName, hEmail)"
+      mat-raised-button
+      color="primary"
+    >
+      ADD HOSPITAL
+    </button>
+  </div>
+  <div>
+    DIAGNOSTIC CENTER
+    <mat-form-field class="diagnostic-center-name">
+      <mat-label>Diagnostic Center Name</mat-label>
+      <input matInput placeholder="Diagnostic Center Name" />
+    </mat-form-field>
+    <mat-form-field class="diagnostic-center-email">
+      <mat-label>Diagnostic Center Email</mat-label>
+      <input matInput placeholder="Diagnostic Center Email" />
+    </mat-form-field>
+    <button mat-raised-button color="primary">ADD DIAGNOSTIC CENTER</button>
+  </div>
+  <div>
+    INSURANCE PROVIDER
+    <mat-form-field class="insurance-provider-name">
+      <mat-label>Insurance Provider Name</mat-label>
+      <input matInput placeholder="Insurance Provider Name" />
+    </mat-form-field>
+    <mat-form-field class="nsurance-provider-email">
+      <mat-label>Insurance Provider Email</mat-label>
+      <input matInput placeholder="Insurance Provider Email" />
+    </mat-form-field>
+    <button mat-raised-button color="primary">ADD INSURANCE PROVIDER</button>
+  </div>
+  <app-adminlist></app-adminlist>
+</ng-template>
+
+<ng-template #guest> HELLO noob </ng-template>

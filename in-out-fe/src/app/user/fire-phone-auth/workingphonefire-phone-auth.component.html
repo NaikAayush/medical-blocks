@@ -1,0 +1,64 @@
+<div *ngIf="auth.user$ | async; then authenticated; else guest">
+  {{ user | json }}
+</div>
+
+<ng-template #authenticated>
+  <button (click)="auth.signOut()" mat-raised-button color="primary">
+    LOGOUT
+  </button>
+</ng-template>
+
+<div id="recaptcha-container"></div>
+
+<ng-template #guest>
+  <h1>Sign In with Your Phone Number</h1>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Country Code</mat-label>
+    <input [(ngModel)]="phoneNumber.countryCode" matInput />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Phone Number</mat-label>
+    <input [(ngModel)]="phoneNumber.number" matInput autofocus />
+  </mat-form-field>
+
+  <button
+    (click)="auth.sendLoginCode(appVerifier, phoneNumber, windowRef)"
+    mat-raised-button
+    color="primary"
+  >
+    VERIFY
+  </button>
+
+  <div *ngIf="windowRef.confirmationResult">
+    <hr />
+    <mat-form-field class="example-full-width">
+      <mat-label>Enter your Verification Code Here</mat-label>
+      <input [(ngModel)]="verificationCode" matInput type="text" name="code" />
+    </mat-form-field>
+
+    <!-- <div class="fingerprint" *ngIf="webAuthnAvailable">
+      <mat-checkbox
+        [(ngModel)]="useFingerprint"
+        matTooltip="Use your fingerprint for future authentications"
+        ><mat-icon inline>fingerprint</mat-icon></mat-checkbox
+      >
+      <br />
+      <br />
+    </div> -->
+
+    <button
+      (click)="auth.verifyLoginCode(verificationCode, windowRef)"
+      mat-raised-button
+      color="primary"
+    >
+      CONTINUE
+    </button>
+  </div>
+  <!-- </div> -->
+</ng-template>
+<!-- <div *ngIf="auth.user$">
+  You have successfully logged in with your phone number! UserId:
+{{ user?.uid }}
+</div> -->
